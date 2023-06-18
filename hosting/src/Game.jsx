@@ -14,15 +14,22 @@ function Game() {
     // get context of the canvas
     ctx = canvasEle.getContext("2d");
   }, []);
+
+  function rand() {
+    return Math.random() * 600;
+  }
+  function generateLine() {
+    return { x: rand(), y: rand(), x1: rand(), y1: rand() }
+  }
+
+  const colors = ['red', 'green','blue','black','pink','orange'];
  
   useEffect(() => {
-    drawLine({ x: 20, y: 20, x1: 20, y1: 100 });
+    for (let i = 0; i< 20; i++) {
+        let colorIndex = Math.floor(Math.random()*6);
+        drawLine(generateLine(), {color: colors[colorIndex], width: 3});
+    }
  
-    drawLine({ x: 50, y: 50, x1: 200, y1: 100 }, { color: 'red' });
- 
-    drawLine({ x: 300, y: 250, x1: 260, y1: 70 }, { color: 'green', width: 5 });
- 
-    drawLine({ x: 70, y: 240, x1: 160, y1: 120 }, { color: 'blue' });
   }, []);
  
   // draw a line
@@ -41,9 +48,15 @@ function Game() {
   return (
     <div className="App">
       <h3> Remove lines one by one. </h3>
-      <canvas ref={canvas}></canvas>
+      <canvas ref={canvas} width={600} height={600}></canvas>
+      <p className="read-the-docs">
+        Clicking on lines is in progress. 
+        <br/>
+        Refresh page to generate new lines. 
+      </p>
+      <a href="/"> Home</a>
     </div>
   );
 }
- 
+
 export default Game;
